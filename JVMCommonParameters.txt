@@ -1,0 +1,9 @@
+
+JVM常用参数：1 -Xms :初始内存大小，默认为物理内存1/64
+		     等价于 -XX:InitialHeapSize
+
+             2 -Xmx :最大分配内存，默认为物理内存1/4
+	     	     等价于 -XX:MaxHeapSize
+
+             3 -Xss :设置单个线程栈的大小，一般默认为512k~1024k
+	     	     等价于 -XX:ThreadStackSize

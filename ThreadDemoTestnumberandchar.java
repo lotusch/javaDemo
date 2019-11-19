@@ -5,22 +5,24 @@
 
 
 class operateData{
+	private boolean flag = true; //标志位；线程的执行顺序是不一定的，由CUP控制，所以人为控制一下。
 	final Lock lock = new ReentrantLock();
-	final Condition condition = lock.newCondition();
-	private boolean flag = true; //线程的执行顺序是不一定的，由CUP控制，所以人为控制一下。
+	final Condition c1 = lock.newCondition();
+	final Condition c2 = lock.newCondition();
+	
 	
 	private void numbers(){
 		lock.lock();
 		try{
 			//判断
 			while(!flag)
-				condition.await();
+				c1.await();
 			//干活
 			for(int i=1;i<=52;i++){
 				System.out.println(i);
 				if(i%2==0){
 					flag = false;
-					condition.signal();
+					c2.signal();
 				}
 			}
 		}catch(Exception e){
@@ -35,12 +37,12 @@ class operateData{
 		lock.lock()
 		try{
 			while(flag)
-				condition.await();
+				c2.await();
 			//干活
 			for(int i=1;i<=26;i++){
 				System.out.println((char)(i+64));
 				flag = true;
-				condition.signal();
+				c1.signal();
 			}
 		}catch(Exception e){
 			e.printStackTrace();
