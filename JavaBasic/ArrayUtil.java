@@ -89,7 +89,7 @@ class ArrayUtil
 		}
 	}
 
-	//查找指定元素
+	//查找指定元素 线性查找
 	public int getIndex(int[] arr,int dest){
 		//线性查找
 		for(int i=0;i<arr.length;i++){
@@ -98,5 +98,30 @@ class ArrayUtil
 			}
 		}
 		return -1; //没找到，返回一个负数。
+	}
+
+	//二分法查找
+	//前提：所要查找的数组必须有序
+	public int getIndex(int[] arr,int dest,1){ //重载getIndex,1 为常量形参
+		//int[] arr = new int[]{-188,-36,-24,2,35,36,59,66,79,89,102,210,333,356};
+		int head = 0;//首索引
+		int end = arr.length-1;//末索引
+		boolean ifFlag = true;
+		while(head <= end){
+			int middle = (head + end)/2;
+			if(dest == arr[middle]){
+				System.out.println("找到了，索引位置是"+middle);
+				isFlag == false;
+				break;
+			}else if(arr[middle] > dest){
+				end = middle-1;
+			}else{
+				head = middle+1;
+			}
+		}
+		if(isFlag){
+			System.out.println("很遗憾，目标值不在此数组中。");
+		}
+		
 	}
 }
